@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -70,9 +67,9 @@ model Card {
   user User @relation(fields: [userEmail], references: [email])
   cardNumber String @unique
   cardName String
-  expirationDate DateTime
-  cvv String @db.Char(3)
-  password String @db.Char(4)
+  expirationDate String
+  cvv String 
+  password String 
   type CardTypes
   virtual Boolean @default(false)
   createAt DateTime @default(now())

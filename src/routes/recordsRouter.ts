@@ -1,41 +1,20 @@
 import { Router } from "express";
 
 import authValidator from "../middlewares/authValidator.js";
-import {
-  getRecords,
-  getCredentials,
-  postCredential,
-  deleteCredential,
-} from "../controllers/recordsController.js";
-import {
-  postCredentialMiddleware,
-  checkCredentialMiddleware,
-} from "../middlewares/recordsMiddleware.js";
-import schemaValidator from "../middlewares/schemaValidator.js";
-import { credentialSchema } from "../schemas/recordsSchemas.js";
+import { getRecords } from "../controllers/recordsController.js";
+import credentialsRouter from "./records/credentialsRouter.js";
+import wifiRouter from "./records/wifiRouter.js";
+import cardRouter from "./records/cardRouter.js";
+import secureNoteRouter from "./records/secureNote.js";
 
 const recordsRouter = Router();
 
 recordsRouter.use(authValidator);
+recordsRouter.use(credentialsRouter);
+recordsRouter.use(wifiRouter);
+recordsRouter.use(secureNoteRouter);
+recordsRouter.use(cardRouter);
 
 recordsRouter.get("/records", getRecords);
-
-recordsRouter.get("/credentials", getCredentials);
-recordsRouter.get(
-  "/credentials/:id",
-  checkCredentialMiddleware,
-  getCredentials
-);
-recordsRouter.post(
-  "/credentials",
-  schemaValidator(credentialSchema),
-  postCredentialMiddleware,
-  postCredential
-);
-recordsRouter.delete(
-  "/credentials/:id",
-  checkCredentialMiddleware,
-  deleteCredential
-);
 
 export default recordsRouter;

@@ -44,3 +44,4 @@ export function decryptString(encryptedString:string){
 export function encryptString(string:string){
   return cryptr.encrypt(string);
 }
+

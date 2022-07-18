@@ -1,8 +1,7 @@
 import { Credential } from "@prisma/client";
 
 import credentialsRepository from "../repositories/credentialsRepository.js";
-import { throwErr } from "../utils/suportFunctions.js";
-import { InputCredential } from "../schemas/recordsSchemas.js";
+import { InputCredential, InsertCredential } from "../schemas/recordsSchemas.js";
 import {decryptString,encryptString} from "../utils/suportFunctions.js";
 
 
@@ -20,13 +19,15 @@ async function getCredentials(userEmail: string, credential?: Credential) {
 
 async function postCredential(userEmail: string, inputData: InputCredential) {
   const encryptedPassword = encryptString(inputData.password);
-  const credentialData = {
+
+  const credentialData:InsertCredential = {
     password: encryptedPassword,
     userEmail,
     userName: inputData.userName,
     title: inputData.title,
     url: inputData.url,
   };
+  
   await credentialsRepository.postCredeltial(credentialData);
 }
 
