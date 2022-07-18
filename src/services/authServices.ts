@@ -5,7 +5,7 @@ import userRepository from "../repositories/userRepository.js";
 import sessionRepository from "../repositories/sessionRepository.js";
 
 import { SignInput } from "../schemas/authSchemas.js";
-import {createToken} from "../utils/suportFunctions.js";
+import { createToken } from "../utils/suportFunctions.js";
 
 async function createUser({ email, password }: SignInput) {
   const sault = 10;
@@ -13,8 +13,8 @@ async function createUser({ email, password }: SignInput) {
   await userRepository.insertUser({ email, password: encryptedPassword });
 }
 
-async function createSession({ email,id }: User) {
-  const token = createToken({email,id});
+async function createSession({ email, id }: User) {
+  const token = createToken({ email, id });
   await invalidatingLastSession(email);
   await sessionRepository.createSession({ userEmail: email, token });
   return token;
@@ -27,5 +27,5 @@ async function invalidatingLastSession(email: string) {
   }
 }
 
-const authServices = { createUser, createSession };
+const authServices = { createUser,createSession,invalidatingLastSession };
 export default authServices;

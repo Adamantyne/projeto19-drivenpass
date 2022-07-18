@@ -6,7 +6,8 @@ import {
   signUpMiddleware,
   signInMiddleware,
 } from "../middlewares/authMiddleware.js";
-import { signIn, signUp } from "../controllers/authController.js";
+import { signIn, signUp, logOut } from "../controllers/authController.js";
+import authValidator from "../middlewares/authValidator.js";
 
 const authRouter = Router();
 
@@ -22,6 +23,6 @@ authRouter.post(
   signInMiddleware,
   signIn
 );
-authRouter.post("/signOut");
+authRouter.get("/signOut", authValidator, logOut);
 
 export default authRouter;

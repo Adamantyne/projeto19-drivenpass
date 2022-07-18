@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
 import { throwErr, validateToken } from "../utils/suportFunctions.js";
-import userRepository from "../repositories/userRepository.js";
 
 export default async function authValidator(
   req: Request,
