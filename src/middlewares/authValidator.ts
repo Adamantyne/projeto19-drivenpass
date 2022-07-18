@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
-import { throwErr, validateToken } from "../utils/suportFunctions";
+import { throwErr, validateToken } from "../utils/suportFunctions.js";
+import userRepository from "../repositories/userRepository.js";
 
 export default async function authValidator(
   req: Request,
@@ -8,12 +9,11 @@ export default async function authValidator(
   next: NextFunction
 ) {
   const authorization = req.headers.authorization;
-  const token = authorization?.split(" ")[1]?.trim();
+  const token = authorization?.replace("Bearer","")?.trim();
   if (!token) {
     throwErr("unauthorized", "You must be logged in to do this.");
   }
-  const userData = validateToken(token);
-  console.log(userData);
-  res.sendStatus(200);
+  const userEmail = validateToken(token);
+  res.locals.userEmail = userEmail;
   next();
 }

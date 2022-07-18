@@ -4,6 +4,7 @@ import bcrypt, { compareSync } from "bcrypt";
 import { SignInput } from "../schemas/authSchemas.js";
 import { throwErr } from "../utils/suportFunctions.js";
 import userRepository from "../repositories/userRepository.js";
+import sessionRepository from "../repositories/sessionRepository.js";
 
 export async function signUpMiddleware(
   req: Request,
