@@ -15,22 +15,25 @@ import { secureNoteSchema } from "../../schemas/recordsSchemas.js";
 
 const secureNoteRouter = Router();
 
-secureNoteRouter.use(authValidator);
+//secureNoteRouter.use(authValidator);
 
-secureNoteRouter.get("/secureNote", getSecureNote);
+secureNoteRouter.get("/secureNote",authValidator, getSecureNote );
 secureNoteRouter.get(
   "/secureNote/:id",
+  authValidator,
   checkSecureNoteMiddleware,
   getSecureNote
 );
 secureNoteRouter.post(
   "/secureNote",
+  authValidator,
   schemaValidator(secureNoteSchema),
   postSecureNoteMiddleware,
   postSecureNote
 );
 secureNoteRouter.delete(
   "/secureNote/:id",
+  authValidator,
   checkSecureNoteMiddleware,
   deleteSecureNote
 );

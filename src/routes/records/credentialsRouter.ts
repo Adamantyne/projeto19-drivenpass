@@ -15,22 +15,25 @@ import { credentialSchema } from "../../schemas/recordsSchemas.js";
 
 const credentialsRouter = Router();
 
-credentialsRouter.use(authValidator);
+//credentialsRouter.use(authValidator);
 
-credentialsRouter.get("/credentials", getCredentials);
+credentialsRouter.get("/credentials",authValidator, getCredentials );
 credentialsRouter.get(
   "/credentials/:id",
+  authValidator,
   checkCredentialMiddleware,
   getCredentials
 );
 credentialsRouter.post(
   "/credentials",
+  authValidator,
   schemaValidator(credentialSchema),
   postCredentialMiddleware,
   postCredential
 );
 credentialsRouter.delete(
   "/credentials/:id",
+  authValidator,
   checkCredentialMiddleware,
   deleteCredential
 );

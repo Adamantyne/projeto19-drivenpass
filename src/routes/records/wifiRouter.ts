@@ -15,16 +15,17 @@ import { wifiSchema } from "../../schemas/recordsSchemas.js";
 
 const wifiRouter = Router();
 
-wifiRouter.use(authValidator);
+//wifiRouter.use(authValidator);
 
-wifiRouter.get("/wifi", getWifi);
-wifiRouter.get("/wifi/:id", checkWifiMiddleware, getWifi);
+wifiRouter.get("/wifi",authValidator, getWifi);
+wifiRouter.get("/wifi/:id",authValidator, checkWifiMiddleware, getWifi);
 wifiRouter.post(
   "/wifi",
+  authValidator,
   schemaValidator(wifiSchema),
   postWifiMiddleware,
   postWifi
 );
-wifiRouter.delete("/wifi/:id", checkWifiMiddleware, deleteWifi);
+wifiRouter.delete("/wifi/:id", authValidator, checkWifiMiddleware, deleteWifi);
 
 export default wifiRouter;

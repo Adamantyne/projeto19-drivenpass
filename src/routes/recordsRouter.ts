@@ -9,12 +9,11 @@ import secureNoteRouter from "./records/secureNote.js";
 
 const recordsRouter = Router();
 
-recordsRouter.use(authValidator);
 recordsRouter.use(credentialsRouter);
 recordsRouter.use(wifiRouter);
 recordsRouter.use(secureNoteRouter);
 recordsRouter.use(cardRouter);
 
-recordsRouter.get("/records", getRecords);
+recordsRouter.get("/records",authValidator, getRecords);
 
 export default recordsRouter;

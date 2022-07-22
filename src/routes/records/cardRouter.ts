@@ -15,24 +15,17 @@ import { cardSchema } from "../../schemas/recordsSchemas.js";
 
 const cardRouter = Router();
 
-cardRouter.use(authValidator);
+//cardRouter.use(authValidator);
 
-cardRouter.get("/card", getCard);
-cardRouter.get(
-  "/card/:id",
-  checkCardMiddleware,
-  getCard
-);
+cardRouter.get("/card",authValidator, getCard);
+cardRouter.get("/card/:id",authValidator, checkCardMiddleware, getCard);
 cardRouter.post(
   "/card",
+  authValidator,
   schemaValidator(cardSchema),
   postCardMiddleware,
-  postCard
+  postCard,
 );
-cardRouter.delete(
-  "/card/:id",
-  checkCardMiddleware,
-  deleteCard
-);
+cardRouter.delete("/card/:id",authValidator, checkCardMiddleware, deleteCard);
 
 export default cardRouter;

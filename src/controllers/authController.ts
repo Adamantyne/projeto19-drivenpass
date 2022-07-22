@@ -17,7 +17,7 @@ export async function signUp(req:Request,res:Response) {
 }
 
 export async function logOut(req:Request,res:Response) {
-    const userEmail = res.locals.userEmail;
+    const userEmail:string = res.locals.userEmail;
     await authServices.invalidatingLastSession(userEmail);
     res.sendStatus(200);
 }
